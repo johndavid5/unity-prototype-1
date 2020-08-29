@@ -49,13 +49,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Update is called once per frame...50-60 times per second...
+    // Update is called once per frame...50-60 times per second...1/50-1/60 seconds per frame...0.02-0.01666 seconds per frame...
     void Update()
     {
         // Move the vehicle forward...
         this.count++;
-        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())}: {this.count}: Move the vehicle forward via Vector3.forward...");
-        this.transform.Translate(Vector3.forward);
+        int v_meters_per_second = 10;        
+        this.transform.Translate(Vector3.forward * Time.deltaTime * v_meters_per_second );
+        // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second
+        Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}: Move the vehicle forward, Time.deltaTime = {Time.deltaTime}, transform.position = {transform.position}..." );
     }
-    
+
 }

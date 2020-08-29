@@ -40,9 +40,6 @@ public class PlayerController : MonoBehaviour
     }
 
     ~PlayerController() {
-        // NOTE: Console.WriteLine() doesn't appear in the Unity console...
-        // Console.WriteLine($"The {ToString()} destructor is executing.");
-        // Debug.Log("PlayerController::~PlayerController(): -- destructor -- Let off some steam, Bennett!");
         Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- Let off some steam, Bennett!");
     }
 
@@ -57,9 +54,8 @@ public class PlayerController : MonoBehaviour
     {
         // Move the vehicle forward...
         this.count++;
-        // Debug.Log($"PlayerController::Update(): {this.count}: Move the vehicle forward...");
-        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())}: {this.count}: Move the vehicle forward...");
-        this.transform.Translate(0, 0, 1);
+        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())}: {this.count}: Move the vehicle forward via Vector3.forward...");
+        this.transform.Translate(Vector3.forward);
     }
     
 }

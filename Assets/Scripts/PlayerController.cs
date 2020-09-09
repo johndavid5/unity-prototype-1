@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public float speed_meters_per_second = 20.0f;
     // public override string ToString() => GetType().FullName;
 
     public override string ToString()
@@ -37,6 +38,8 @@ public class PlayerController : MonoBehaviour
 
         // Debug.Log("PlayerController::PlayerController() -- constructor -- I'll be back, Bennett!");
         Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- I'll be back, Bennett!");
+
+        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.speed_meters_per_second = ${this.speed_meters_per_second}...");
     }
 
     ~PlayerController() {
@@ -54,8 +57,7 @@ public class PlayerController : MonoBehaviour
     {
         // Move the vehicle forward...
         this.count++;
-        int v_meters_per_second = 20;        
-        this.transform.Translate(Vector3.forward * Time.deltaTime * v_meters_per_second );
+        this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed_meters_per_second );
         // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second
         Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}: Move the vehicle forward, Time.deltaTime = {Time.deltaTime}, transform.position = {transform.position}..." );
     }

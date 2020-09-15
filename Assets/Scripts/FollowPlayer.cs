@@ -9,16 +9,18 @@ public class FollowPlayer : MonoBehaviour
     // See lesson 1.3.3 in https://learn.unity.com/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables
     public GameObject player;
 
+    private Vector3 offset = new Vector3(0.0f, 5.0f, -11.5f);
+
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log($"FollowPlayer::constructor(): this.player = {this.player}...");
+        Debug.Log($"FollowPlayer::constructor(): this.player = {this.player}, this.offset = {this.offset}...");
     }
 
     // Update is called once per frame
     void Update()
     {
         // Assign camera's position to player's position + offset
-        this.transform.position = this.player.transform.position + new Vector3(0.0f, 5.0f, -11.5f);
+        this.transform.position = this.player.transform.position + this.offset;
     }
 }

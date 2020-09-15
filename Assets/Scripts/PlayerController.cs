@@ -6,7 +6,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed_meters_per_second = 20.0f;
+    public float speed = 20.0f; // meters/second
+    public float turnSpeed; // meters/second
+
+    // Arrow Function Format of ToString()...
     // public override string ToString() => GetType().FullName;
 
     public override string ToString()
@@ -30,16 +33,21 @@ public class PlayerController : MonoBehaviour
     */
     PlayerController() {
 
-        // Message with a GameObject name.
-        // Debug.Log("Hello: " + gameObject.name);
+        // Message with a GameObject name...
+        // UnityException: get_gameObject is not allowed to be called from a MonoBehaviour constructor(or instance field initializer), call it in Awake or Start instead. Called from MonoBehaviour 'PlayerController' on game object 'Veh_Ute_Red_Z'.
+        // See "Script Serialization" page in the Unity Manual for further details.
+        // PlayerController..ctor()(at Assets / Scripts / PlayerController.cs:37)
+        // Debug.Log($"Hello, {this.gameObject.name}!");
+
         // NOTE: Console.WriteLine() doesn't appear in the Unity console...
         // Console.WriteLine($"The {ToString()} constructor is executing.");
+
         this.count = 0;
 
         // Debug.Log("PlayerController::PlayerController() -- constructor -- I'll be back, Bennett!");
         Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- I'll be back, Bennett!");
 
-        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.speed_meters_per_second = ${this.speed_meters_per_second}...");
+        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.speed = ${this.speed} meters/second...");
     }
 
     ~PlayerController() {
@@ -57,9 +65,13 @@ public class PlayerController : MonoBehaviour
     {
         // Move the vehicle forward...
         this.count++;
-        this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed_meters_per_second );
+        this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed );
+        this.transform.Translate(Vector3.right * Time.deltaTime * this.turnSpeed);
+
         // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second
-        Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}: Move the vehicle forward, Time.deltaTime = {Time.deltaTime}, transform.position = {transform.position}..." );
+        Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}:\n" +
+            "this.turnSpeed = {this.turnSpeed}, Time.deltaTime = {Time.deltaTime},\n" +
+            "this.transform.position = {this.transform.position}..." );
     }
 
 }

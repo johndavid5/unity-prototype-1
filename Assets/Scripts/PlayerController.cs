@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 20.0f; // meters/second
     public float turnSpeed = 10.0f; 
     public float horizontalInput;
+    public float forwardInput;
 
     // Arrow Function Format of ToString()...
     // public override string ToString() => GetType().FullName;
@@ -56,10 +57,11 @@ public class PlayerController : MonoBehaviour
     {
         // Procure horizontalInput from Input manager...see Horizontal in Edit | Project Settings | Input 
         this.horizontalInput = Input.GetAxis("Horizontal");
+        this.forwardInput = Input.GetAxis("Vertical");
 
         // Move the vehicle forward...
         this.count++;
-        this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed );
+        this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed * this.forwardInput );
         this.transform.Translate(Vector3.right * Time.deltaTime * this.turnSpeed * this.horizontalInput);
 
         // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second

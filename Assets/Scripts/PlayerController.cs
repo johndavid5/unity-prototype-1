@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 20.0f; // meters/second
-    public float turnSpeed = 10.0f; 
+    public float speed; // meters/second
+    public float turnSpeed; 
     public float horizontalInput;
     public float forwardInput;
 
@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("PlayerController::PlayerController() -- constructor -- I'll be back, Bennett!");
         Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- I'll be back, Bennett!");
 
-        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.speed = ${this.speed} meters/second...");
+        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.speed = {this.speed} meters/second...");
+        Debug.Log($" {ToString(MethodBase.GetCurrentMethod())} -- this.turnSpeed = {this.turnSpeed} meters/second...");
     }
 
     ~PlayerController() {
@@ -61,12 +62,14 @@ public class PlayerController : MonoBehaviour
 
         // Move the vehicle forward...
         this.count++;
+
         this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed * this.forwardInput );
-        this.transform.Translate(Vector3.right * Time.deltaTime * this.turnSpeed * this.horizontalInput);
+        
+        // Rotate about the y-axis or about the Vector3.up axis...
+        this.transform.Rotate(Vector3.up, Time.deltaTime * this.turnSpeed * this.horizontalInput);
 
         // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second
         Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}:\n" +
-            $"this.turnSpeed * this.horizontalInput = {this.turnSpeed * this.horizontalInput}\n" +
             $"Time.deltaTime = {Time.deltaTime},\n" +
             $"this.transform.position = {this.transform.position}..." );
     }

@@ -6,10 +6,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed; // meters/second
-    public float turnSpeed; 
-    public float horizontalInput;
-    public float forwardInput;
+    private float speed = 10; // meters/second
+    private float turnSpeed = 50; 
+    private float horizontalInput;
+    private float forwardInput;
+    private int count = 0; // count of frame number for debug output...
 
     // Arrow Function Format of ToString()...
     // public override string ToString() => GetType().FullName;
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
         return ($"{m.ReflectedType.Name}.{m.Name}");
     }
 
-    public int count;
+    
 
     /**
     * @see https://docs.unity3d.com/ScriptReference/Debug.Log.html
@@ -56,13 +57,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame...50-60 times per second...1/50-1/60 seconds per frame...0.02-0.01666 seconds per frame...
     void Update()
     {
-        // Procure horizontalInput from Input manager...see Horizontal in Edit | Project Settings | Input 
+        this.count++;
+
+        // Get player input:
+        // Procure horizontalInput and forwardInput from Input manager
+        // See Horizontal and Vertical in Edit | Project Settings | Input 
         this.horizontalInput = Input.GetAxis("Horizontal");
         this.forwardInput = Input.GetAxis("Vertical");
 
         // Move the vehicle forward...
-        this.count++;
-
         this.transform.Translate(Vector3.forward * Time.deltaTime * this.speed * this.forwardInput );
         
         // Rotate about the y-axis or about the Vector3.up axis...
@@ -70,8 +73,8 @@ public class PlayerController : MonoBehaviour
 
         // 1 meter * 1 / 50 seconds per frame = 1/50 meter/frame; 1/50 meters/frame * 50 frames/second = 1 meter/second
         Debug.Log($"{ToString(MethodBase.GetCurrentMethod())}: {this.count}: Time.time = {Time.time}:\n" +
-            $"Time.deltaTime = {Time.deltaTime},\n" +
-            $"this.transform.position = {this.transform.position}..." );
+            $"Time.deltaTime = {Time.deltaTime}, this.transform.position = {this.transform.position}..."
+        );
     }
 
 }

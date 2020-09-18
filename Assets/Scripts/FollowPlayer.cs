@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    // NOTE: this.player is magically initialized to point to the vehicle via the IDE
+    // NOTE: this.player is magically initialized as a "reference" to point to the vehicle via the IDE
     // by dragging the vehicle to the FollowPlayer::Player field in the Main Camera.
     // See lesson 1.3.3 in https://learn.unity.com/tutorial/1-3-make-the-camera-follow-the-vehicle-with-variables
     public GameObject player;
